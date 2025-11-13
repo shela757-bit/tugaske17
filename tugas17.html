@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebtoonKu - Komunitas Webtoon Indonesia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --hijau-utama: #2ecc71;
+            --hijau-gelap: #27ae60;
+            --hijau-muda: #a9dfbf;
+            --hijau-paling-muda: #d5f4e6;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--hijau-utama) !important;
+        }
+        
+        .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--hijau-utama) !important;
+        }
+        
+        .btn-hijau {
+            background-color: var(--hijau-utama);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-hijau:hover {
+            background-color: var(--hijau-gelap);
+            color: white;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--hijau-paling-muda) 0%, white 100%);
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero-title {
+            font-weight: bold;
+            color: var(--hijau-gelap);
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            color: var(--hijau-gelap);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--hijau-utama);
+        }
+        
+        .card-webtoon {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .card-webtoon:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .badge-genre {
+            background-color: var(--hijau-muda);
+            color: var(--hijau-gelap);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-right: 5px;
+        }
+        
+        .creator-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .creator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .creator-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--hijau-utama);
+            margin-bottom: 15px;
+        }
+        
+        .discussion-card {
+            border-left: 4px solid var(--hijau-utama);
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: var(--hijau-paling-muda);
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s;
+        }
+        
+        .discussion-card:hover {
+            background-color: var(--hijau-muda);
+        }
+        
+        .event-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .event-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .event-date {
+            background-color: var(--hijau-utama);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background-color: var(--hijau-gelap);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--hijau-muda);
+            text-decoration: underline;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            color: var(--hijau-muda);
+            transform: scale(1.2);
+        }
+        
+        .stats-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--hijau-utama);
+        }
+        
+        .tab-custom .nav-link {
+            color: var(--hijau-gelap);
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: 10px 15px;
+            margin-right: 10px;
+        }
+        
+        .tab-custom .nav-link.active {
+            color: var(--hijau-utama);
+            background-color: transparent;
+            border-bottom: 2px solid var(--hijau-utama);
+        }
+        
+        .tab-custom .nav-link:hover {
+            color: var(--hijau-utama);
+            border-bottom: 2px solid var(--hijau-muda);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="bi bi-book"></i> WebtoonKu</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#beranda">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#webtoon">Webtoon</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kreator">Kreator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#diskusi">Diskusi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#event">Event</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-hijau me-2">Masuk</button>
+                    <button class="btn btn-outline-hijau">Daftar</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title display-4">Komunitas Webtoon Indonesia</h1>
+                    <p class="lead mb-4">Bergabunglah dengan ribuan pecinta webtoon Indonesia. Baca, buat, dan berbagi karya Anda dengan komunitas kami!</p>
+                    <div class="d-flex">
+                        <button class="btn btn-hijau btn-lg me-3">Jelajahi Webtoon</button>
+                        <button class="btn btn-outline-success btn-lg">Buat Webtoon</button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="webtoon.jpeg" alt="Webtoon Hero" class="img-fluid rounded-3 shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-number">2,500+</div>
+                        <p>Webtoon</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-number">15,000+</div>
+                        <p>Kreator</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-number">100,000+</div>
+                        <p>Pembaca</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stats-card">
+                        <div class="stats-number">50+</div>
+                        <p>Genre</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Webtoons Section -->
+    <section id="webtoon" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Webtoon Populer</h2>
+            
+            <!-- Tabs -->
+            <ul class="nav nav-tabs tab-custom mb-4" id="webtoonTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="terbaru-tab" data-bs-toggle="tab" data-bs-target="#terbaru" type="button" role="tab">Terbaru</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="trending-tab" data-bs-toggle="tab" data-bs-target="#trending" type="button" role="tab">Trending</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab">Selesai</button>
+                </li>
+            </ul>
+            
+            <!-- Tab Content -->
+            <div class="tab-content" id="webtoonTabContent">
+                <div class="tab-pane fade show active" id="terbaru" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="jt.jpeg" class="card-img-top" alt="Webtoon 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Romance</h5>
+                                    <p class="card-text"></p>Yoon Junyoung menemukan rumah kosong! Tapi ternyata, teman sekelasnya, Kwon Beomjin, juga menemukan rumah yang sama. Punya tujuan dan alasannya masing-masing, apakah Junyoung dan Beomjin akan menghabiskan waktu bersama dengan akur?
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Fantasi</span>
+                                        <span class="badge-genre">Petualangan</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 15.2k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 2.1k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="uchc2.jpeg" class="card-img-top" alt="Webtoon 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cinta di Sekolah</h5>
+                                    <p class="card-text"></p>Kisah ini berpusat pada Da-Kyung, seorang anggota geng elit yang kehilangan bosnya, sosok yang selama ini ia anggap sebagai pengganti ibunya. Saat mengetahui bahwa kematian bosnya diakibatkan oleh "Chairman Lee," seorang tokoh berkuasa di Grup Souyoung, Da-Kyung bertekad membalas dendam.dan mengatasi rasa mindernya. So proud of you Wooyeon
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Romantis</span>
+                                        <span class="badge-genre">Drama</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 22.5k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 3.7k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="dr.jpeg" class="card-img-top" alt="Webtoon 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Misteri</h5>
+                                    <p class="card-text">Ceritanya dipenuhi dengan interaksi Setha dengan hantu dan upayanya menyelidiki misteri di balik kematian mereka.
+Ditulis oleh Febs dan Y.I.W, webtoon ini menarik perhatian 23,1 juta pembaca dan meraih rating 9,88.
+Dengan efek gambar gerak yang memberikan sensasi jumpscare, webtoon ini cocok bagi yang menyukai horor dengan sentuhan mistis.</p>
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Horor</span>
+                                        <span class="badge-genre">Misteri</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 18.9k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 2.8k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="trending" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="max2.jpg" class="card-img-top" alt="Webtoon 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Gamer Level Max</h5>
+                                    <p class="card-text"></p>Mengisahkan tentang Kang Jinhyeok, satu-satunya orang di dunia yang menyelesaikan game Tower of Trials. Ketika ia memutuskan untuk pindah, game Tower of Trials yang ia selesaikan tiba-tiba mengambil alih kenyataan dan monster ada di mana-mana.
+
+                                        ncul di dunia nyata dengan pesan untuk membersihkan setiap lantai dalam waktu 90 hari atau dunia akan berakhir. Takdir ada di tangan Kang Jinhyeok untuk menyelamatkan dunia dengan pengetahuan tentang game tersebut yang hanya ia yang tahu.
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Isekai</span>
+                                        <span class="badge-genre">Aksi</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 35.7k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 5.2k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="Dgchef.webp" class="card-img-top" alt="Webtoon 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Kehidupan Seorang Chef</h5>
+                                    <p class="card-text"></p>Kenapa raja naga ini tidak memakanku? Apa jangan-jangan dia suka dengan masakanku...?!
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Slice of Life</span>
+                                        <span class="badge-genre">Kuliner</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 28.3k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 4.1k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="detekconan.jpeg" class="card-img-top" alt="Webtoon 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Detektif Remaja</h5>
+                                    <p class="card-text"></p>
+                                    <div class="mb-2">Berkisah tentang Shinichi Kudo, seorang detektif SMA berbakat, tidak sengaja memergoki transaksi mencurigakan organisasi misterius berpakaian hitam. Dia dipaksa meminum obat yang seharusnya membunuhnya, namun justru mengubah tubuhnya menjadi anak berusia 7 tahun.
+
+Untuk menyembunyikan identitasnya, Shinichi menggunakan nama Conan Edogawa dan tinggal bersama teman masa kecilnya, Ran Mouri, dan ayahnya yang merupakan detektif swasta, Kogoro Mouri. Dia diam-diam membantu memecahkan kasus-kasus yang ditangani Kogoro.
+
+Sambil menjalani kehidupan barunya sebagai anak SD, Conan terus mencari informasi tentang organisasi hitam dan obat APTX 4869 yang mengecilkan tubuhnya. Tidak sendiri, dia dibantu oleh Professor Agasa dan beberapa sekutu yang mengetahui identitas aslinya
+                                        <span class="badge-genre">Misteri</span>
+                                        <span class="badge-genre">Komedi</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 31.5k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 4.8k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="completed" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="mr.jpeg" class="card-img-top" alt="Webtoon 7">
+                                <div class="card-body">
+                                    <h5 class="card-title">Perjalanan Waktu</h5>
+                                    <p class="card-text"></p>"Marry My Husband"! Sahabatku dan suamiku berhubungan di belakangku. Seolah tidak cukup memberiku nasib buruk, mereka juga mencelakai aku. Tapi aku malah kembali ke 10 tahun yang lalu?! Kali ini aku bersumpah untuk memberikan nasib buruk yang kualami pada mereka. Akan kubuat sahabatku menikahi suamiku, bukan aku!
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Sci-Fi</span>
+                                        <span class="badge-genre">Drama</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 45.2k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 7.3k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="thewarior.jpeg" class="card-img-top" alt="Webtoon 8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Kisah Pahlawan Super</h5>
+                                    <p class="card-text">Jeongsu Park, seorang pahlawan yang menyelamatkan dunia lain dengan tekad untuk balas dendam pada Kim Minsu Kisah tragis tentang seorang pahlawan yang membunuh para pahlawan, Sebuah kenyataan yang dingin tanpa akhir yang bahagia.</p>
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Superhero</span>
+                                        <span class="badge-genre">Aksi</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 52.8k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 8.9k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-webtoon">
+                                <img src="pulau.jpeg" class="card-img-top" alt="Webtoon 9">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pulau Terlupakan</h5>
+                                    <p class="card-text"></p>Wira, Yasser dan Aqilla adalah tiga pelajar yang sedang bingung menghabiskan masa liburan akhir sekolah. Hingga mereka memiliki ide untuk kembali berpetualang dan memutuskan pergi ke Pulau Kelabu. Namun sayang, banyak sekali halau rintangan serta misteri yang mereka temukan selama di perjalanan. Berhasilkah mereka kembali ke rumah dengan selamat? Ikuti kisahnya di webtoon Rayuan Maut Pulau Kelabu
+                                    <div class="mb-2">
+                                        <span class="badge-genre">Petualangan</span>
+                                        <span class="badge-genre">Drama</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted"><i class="bi bi-eye"></i> 38.6k</small>
+                                        <small class="text-muted"><i class="bi bi-heart"></i> 6.2k</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-hijau">Lihat Semua Webtoon</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Creators Section -->
+    <section id="kreator" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Kreator Populer</h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="creator-card">
+                        <img src="raaa.jpeg" alt="Creator 1" class="creator-avatar">
+                        <h5>Zahra</h5>
+                        <p class="text-muted">12 Webtoon</p>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-sm btn-hijau">Ikuti</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="creator-card">
+                        <img src="alehs.jpeg" alt="Creator 2" class="creator-avatar">
+                        <h5>Shela</h5>
+                        <p class="text-muted">8 Webtoon</p>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-sm btn-hijau">Ikuti</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="creator-card">
+                        <img src="mmip.jpeg" alt="Creator 3" class="creator-avatar">
+                        <h5>Bela</h5>
+                        <p class="text-muted">15 Webtoon</p>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-sm btn-hijau">Ikuti</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="creator-card">
+                        <img src="umiii.jpeg" alt="Creator 4" class="creator-avatar">
+                        <h5>Aulia</h5>
+                        <p class="text-muted">6 Webtoon</p>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-sm btn-hijau">Ikuti</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Discussion Section -->
+    <section id="diskusi" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Diskusi Komunitas</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="discussion-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5>Rekomendasi Webtoon Romance Terbaik 2023</h5>
+                                <p class="mb-2">Halo semuanya, aku lagi cari webtoon romance yang bagus. Ada yang punya rekomendasi?</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="https://picsum.photos/seed/user1/40/40.jpg" alt="User" class="rounded-circle me-2" width="30" height="30">
+                                    <small class="text-muted me-3">Dina Kartika</small>
+                                    <small class="text-muted me-3"><i class="bi bi-chat"></i> 23</small>
+                                    <small class="text-muted"><i class="bi bi-heart"></i> 45</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-success">Hot</span>
+                        </div>
+                    </div>
+                    
+                    <div class="discussion-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5>Tips Menggambar Webtoon untuk Pemula</h5>
+                                <p class="mb-2">Bagi teman-teman yang baru mulai membuat webtoon, ini beberapa tips dari aku...</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="https://picsum.photos/seed/user2/40/40.jpg" alt="User" class="rounded-circle me-2" width="30" height="30">
+                                    <small class="text-muted me-3">Shela</small>
+                                    <small class="text-muted me-3"><i class="bi bi-chat"></i> 18</small>
+                                    <small class="text-muted"><i class="bi bi-heart"></i> 67</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="discussion-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5>Kolaborasi Webtoon - Cari Penulis Cerita</h5>
+                                <p class="mb-2">Aku lagi cari penulis cerita untuk webtoon bergenre fantasi. Bagi yang tertarik...</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="https://picsum.photos/seed/user3/40/40.jpg" alt="User" class="rounded-circle me-2" width="30" height="30">
+                                    <small class="text-muted me-3">Bela</small>
+                                    <small class="text-muted me-3"><i class="bi bi-chat"></i> 12</small>
+                                    <small class="text-muted"><i class="bi bi-heart"></i> 34</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Topik Trending</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    #WebtoonChallenge
+                                    <span class="badge bg-primary rounded-pill">142</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    #TipsMenggambar
+                                    <span class="badge bg-primary rounded-pill">89</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    #KreatorSpotlight
+                                    <span class="badge bg-primary rounded-pill">67</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    #WebtoonHorror
+                                    <span class="badge bg-primary rounded-pill">53</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-hijau">Lihat Semua Diskusi</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="event" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Event & Kompetisi</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <div class="event-date">
+                                    <div>25</div>
+                                    <div>AGU</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Webtoon Creation Workshop</h5>
+                                    <p class="card-text">Pelajari cara membuat webtoon dari nol bersama kreator profesional.</p>
+                                    <p class="card-text"><small class="text-muted"><i class="bi bi-geo-alt"></i> Jakarta Convention Center</small></p>
+                                    <button class="btn btn-sm btn-hijau">Daftar Sekarang</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <div class="event-date">
+                                    <div>10</div>
+                                    <div>SEP</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Annual Webtoon Awards</h5>
+                                    <p class="card-text">Kompetisi tahunan untuk kreator webtoon Indonesia dengan total hadiah 100 juta rupiah.</p>
+                                    <p class="card-text"><small class="text-muted"><i class="bi bi-trophy"></i> Total Hadiah: Rp 100.000.000</small></p>
+                                    <button class="btn btn-sm btn-hijau">Info Lebih Lanjut</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <div class="event-date">
+                                    <div>15</div>
+                                    <div>SEP</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Meet & Greet with Famous Creators</h5>
+                                    <p class="card-text">Kesempatan bertemu dan berdiskusi langsung dengan kreator webtoon ternama.</p>
+                                    <p class="card-text"><small class="text-muted"><i class="bi bi-people"></i> Terbatas 100 orang</small></p>
+                                    <button class="btn btn-sm btn-hijau">Daftar Sekarang</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <div class="event-date">
+                                    <div>30</div>
+                                    <div>SEP</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Webtoon Exhibition</h5>
+                                    <p class="card-text">Pameran karya webtoon terbaik dari kreator Indonesia.</p>
+                                    <p class="card-text"><small class="text-muted"><i class="bi bi-calendar3"></i> 30 Sep - 2 Okt 2025</small></p>
+                                    <button class="btn btn-sm btn-hijau">Info Lebih Lanjut</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">WebtoonKu</h5>
+                    <p>Platform komunitas webtoon terbesar di Indonesia. Bergabunglah dengan ribuan kreator dan pembaca webtoon.</p>
+                    <div class="mt-3">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="mb-3">Menu</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="footer-link">Beranda</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Webtoon</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Kreator</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Diskusi</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Event</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="mb-3">Bantuan</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="footer-link">FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Kontak Kami</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Kebijakan Privasi</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">Newsletter</h5>
+                    <p>Dapatkan update terbaru tentang webtoon dan event langsung di email Anda.</p>
+                    <form class="mt-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Email Anda">
+                            <button class="btn btn-hijau" type="button">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4 bg-white">
+            <div class="text-center">
+                <p>&copy; 2023 WebtoonKu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add active class to nav links on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
